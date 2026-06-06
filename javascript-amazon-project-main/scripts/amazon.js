@@ -1,6 +1,8 @@
-
+/* can avoid from naming complict by using module*/
+import {cart as cart} from '../data/cart.js';
 
 let fullHTML = '';
+
 
 products.forEach( product => {
   const html = `
@@ -64,13 +66,16 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', ()=>{
     const productId = button.dataset.productId;
     let matchingItem = null;
+    let itemNumber = 0;
     cart.forEach((item) => {
     matchingItem = productId === item.productId && item;
     })
     matchingItem && (matchingItem.quantity += 1);
     !matchingItem && (cart.push({productId: productId, quantity:1}));
-
-    console.log(cart)
+    cart.forEach(item => {
+      itemNumber += item.quantity;
+    })
+    document.querySelector('.js-cart-quantity').innerHTML = itemNumber;
   })
 
 })
