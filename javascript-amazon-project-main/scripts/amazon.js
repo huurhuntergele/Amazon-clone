@@ -1,5 +1,6 @@
 /* can avoid from naming complict by using module*/
 import {cart as cart} from '../data/cart.js';
+import {products} from '../data/products.js';
 
 let fullHTML = '';
 
