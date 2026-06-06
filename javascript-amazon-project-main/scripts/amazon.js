@@ -10,6 +10,7 @@ function updateCartQuantity (){
     cart.forEach(cartItem => {
       itemNumber += cartItem.quantity;
     })
+    localStorage.setItem('cartQuantity', JSON.stringify(itemNumber))
     document.querySelector('.js-cart-quantity').innerHTML = itemNumber;
 }
 
@@ -75,6 +76,6 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', ()=>{
     addToCart(button);
     updateCartQuantity();
-  })
-
+  });
+updateCartQuantity();
 })
