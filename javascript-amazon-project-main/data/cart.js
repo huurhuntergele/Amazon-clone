@@ -1,20 +1,33 @@
-export const cart = [{
-  productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-  quantity:2},
-  {
-    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-    quantity:1
-  }
-];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+
+function saveToStorage(){
+  localStorage.setItem('cart', JSON.stringify(cart))
+}
 
 export function addToCart (button){
   const productId = button.dataset.productId;
-  let matchingItem = null;
-  cart.forEach((cartItem) => {
-  matchingItem = productId === cartItem.productId && cartItem;
-  })
-  matchingItem && (matchingItem.quantity += 1);
-  !matchingItem && (cart.push({productId: productId, quantity:1}));
-  console.log(cart);
+  const matchingItem = cart.find(cartItem => cartItem.productId === productId);
+
+  if(matchingItem) {
+    matchingItem.quantity += 1;
+  } else {
+    cart.push({productId: productId, quantity:1})
+  }
+  saveToStorage();
 }
+
+export function removeFromCart (link){
+  const productId = link.dataset.productId;
+  let matchingIndex;
+  cart = cart.filter(cartItem => cartItem.productId !== productId);
+  saveToStorage();
+  const container = document.querySelector(`.js-cart-item-container-${productId}`);
+  console.log(container);
+  if (container) {
+    container.remove();
+  }
+
+}
+
 

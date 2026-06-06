@@ -1,9 +1,9 @@
-import { cart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 function showOrderSummary(){
-  let fullHTML;
+  let fullHTML = '';
 cart.forEach((cartItem, index )=>{
   const productId = cartItem.productId;
   let matchingProduct;
@@ -12,7 +12,7 @@ cart.forEach((cartItem, index )=>{
 
   })
   let html = `
-          <div class="cart-item-container">
+          <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -94,16 +94,6 @@ cart.forEach((cartItem, index )=>{
 document.querySelector('.order-summary').innerHTML = fullHTML;
 }
 
-function removeFromCart (link){
-  const productId = link.dataset.productId;
-  let matchingIndex;
-  cart.forEach((cartItem, index)=>{
-    if(cartItem.productId === productId) matchingIndex = index;
-  })
-  cart.splice(matchingIndex, 1);
-  showOrderSummary();
-}
-
 showOrderSummary();
 
 document.querySelectorAll('.js-delete-link').forEach((link)=>{
@@ -112,3 +102,5 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
   }
 )
 })
+
+
