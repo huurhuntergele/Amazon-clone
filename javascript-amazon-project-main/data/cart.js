@@ -12,7 +12,7 @@ export function addToCart (button){
   if(matchingItem) {
     matchingItem.quantity += 1;
   } else {
-    cart.push({productId: productId, quantity:1})
+    cart.push({productId: productId, quantity:1, deliveryOptionID:1})
   }
   saveToStorage();
 }
