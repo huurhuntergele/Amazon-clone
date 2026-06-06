@@ -1,9 +1,16 @@
 /* can avoid from naming complict by using module*/
-import {cart as cart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
 let fullHTML = '';
 
+function updateCartQuantity (){
+  let itemNumber = 0;
+    cart.forEach(cartItem => {
+      itemNumber += cartItem.quantity;
+    })
+    document.querySelector('.js-cart-quantity').innerHTML = itemNumber;
+}
 
 products.forEach( product => {
   const html = `
@@ -65,18 +72,8 @@ document.querySelector('.products-grid').innerHTML = fullHTML;
 
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', ()=>{
-    const productId = button.dataset.productId;
-    let matchingItem = null;
-    let itemNumber = 0;
-    cart.forEach((item) => {
-    matchingItem = productId === item.productId && item;
-    })
-    matchingItem && (matchingItem.quantity += 1);
-    !matchingItem && (cart.push({productId: productId, quantity:1}));
-    cart.forEach(item => {
-      itemNumber += item.quantity;
-    })
-    document.querySelector('.js-cart-quantity').innerHTML = itemNumber;
+    addToCart(button);
+    updateCartQuantity();
   })
 
 })
