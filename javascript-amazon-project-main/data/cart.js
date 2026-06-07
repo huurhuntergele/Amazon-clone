@@ -1,3 +1,5 @@
+import { renderPaymentSummary } from "../scripts/checkout/paymentSummary.js";
+
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 
@@ -27,6 +29,7 @@ export function removeFromCart (link){
   if (container) {
     container.remove();
   }
+  renderPaymentSummary();
 
 }
 
